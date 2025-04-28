@@ -1,0 +1,110 @@
+/* -----------------------------------
+   NaijaHomes Theme - Red/Black/White
+-------------------------------------- */
+
+:root {
+    --color-primary: #e50914;
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-gray-dark: #1a1a1a;
+    --font-main: 'Poppins', sans-serif;
+  }
+  .navbar {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .dark .navbar {
+    background-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 1px 4px rgba(255, 255, 255, 0.06);
+  }
+  /* Dark mode overrides */
+  .dark {
+    --color-primary: #e50914;
+    --color-black: #ffffff;
+    --color-white: #000000;
+    --color-gray-dark:rgb(255, 252, 252);
+  }
+  .nav-link {
+    position: relative;
+    padding: 0.5rem;
+    transition: color 0.3s;
+  }
+  
+  .nav-link:hover {
+    color: var(--color-primary);
+  }
+  
+  /* Active link indicator */
+  .nav-link.active::after {
+    
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+  }
+  
+  /* Button hover */
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    transition: background-color 0.3s, opacity 0.3s;
+  }
+  
+  .btn-primary:hover {
+    opacity: 0.85;
+  }
+  
+  /* Global styles */
+  body {
+    font-family: var(--font-main);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Custom utility classes */
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .bg-secondary{
+    background-color: var(--color-white)
+  }
+  
+  .text-primary {
+    color: var(--color-primary);
+  }
+  
+  .border-primary {
+    border-color: var(--color-primary);
+  }
+  /* Default navbar shadow (light mode) */
+.navbar {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Dark mode navbar shadow */
+  .dark .navbar {
+    box-shadow: 0 1px 4px rgba(255, 255, 255, 0.05);
+  }
+  
+
+  /* HERO SECTION */
+  .hero-section {
+    background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+    
+  }
+  
+  .dark .hero-section {
+    background: linear-gradient(to bottom, #111111, #000000);
+  }
+  
+  
