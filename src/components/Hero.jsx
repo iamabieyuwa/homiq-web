@@ -23,16 +23,19 @@ const Hero = () => {
     <section className="relative h-screen overflow-hidden">
       {/* Slideshow Background */}
       <div className="absolute inset-0 z-0">
-        {images.map((img, idx) => (
-          <img
-            key={idx}
-            src={img}
-            alt={`house-${idx}`}
-            className={`absolute w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-              idx === current ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        ))}
+      {images.map((img, idx) => (
+  <img
+    key={idx}
+    src={img}
+    alt="" // 🔄 Remove descriptive alt to prevent fallback text
+    className={`absolute w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+      idx === current ? "opacity-100" : "opacity-0"
+    }`}
+    onError={(e) => {
+      e.target.style.display = "none"; // ❌ hide broken image completely
+    }}
+  />
+))}
         <div className="absolute inset-0 bg-black/40 dark:bg-black/60" />
       </div>
 
