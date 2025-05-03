@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import PropertyDetails from "./components/PropertyDetails";
 import AgentLogin from "./components/pages/AgentLogin";
+import AgentDashboard from './components/pages/AgentDashboard'
 import Layout from "./Layout";
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/property/:id" element={<PropertyDetails />} />
 
       <Route path="/agents/login" element={<AgentLogin />} />
+        <Route path="/agent/dashboard" element={<AgentDashboard />} />
     </Route>
   </Routes>
   );

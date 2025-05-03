@@ -55,30 +55,30 @@ const PropertyDetails = () => {
 
           {/* Swiper Image/Video Gallery */}
           <Swiper
-  key={listing.id} // 👈 this forces Swiper to reset on property change
-  navigation
-  modules={[Navigation]}
-  className="rounded-lg overflow-hidden"
->
-  {listing.images.map((img, i) => (
-    <SwiperSlide key={i}>
-      <img
-        src={img}
-        alt=""
-        className="w-full h-[300px] object-cover"
-        onError={(e) => (e.target.style.display = "none")}
-      />
-    </SwiperSlide>
-  ))}
-  {listing.video && (
-    <SwiperSlide>
-      <video controls className="w-full h-[300px] object-cover">
-        <source src={listing.video} type="video/mp4" />
-      </video>
-    </SwiperSlide>
-  )}
-</Swiper>
-
+            key={listing.id} // 👈 this forces Swiper to reset on property change
+            navigation
+            modules={[Navigation]}
+            className="rounded-lg overflow-hidden"
+          >
+            {Array.isArray(listing.images) &&
+              listing.images.map((img, i) => (
+                <SwiperSlide key={i}>
+                  <img
+                    src={img}
+                    alt=""
+                    className="w-full h-[300px] object-cover"
+                    onError={(e) => (e.target.style.display = "none")}
+                  />
+                </SwiperSlide>
+              ))}
+            {listing.video && (
+              <SwiperSlide>
+                <video controls className="w-full h-[300px] object-cover">
+                  <source src={listing.video} type="video/mp4" />
+                </video>
+              </SwiperSlide>
+            )}
+          </Swiper>
 
           {/* Description */}
           <div>
@@ -104,14 +104,18 @@ const PropertyDetails = () => {
 
           {/* Contact Seller */}
           <div>
-            <a
-              href={`https://wa.me/234${listing.contact.slice(1)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-primary text-white px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
-            >
-              Contact Seller on WhatsApp
-            </a>
+            {listing.contact ? (
+              <a
+                href={`https://wa.me/234${listing.contact.slice(1)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-primary text-white px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
+              >
+                Contact Seller on WhatsApp
+              </a>
+            ) : (
+              <div className="text-sm text-red-600">No contact info available</div>
+            )}
           </div>
         </div>
 
@@ -121,11 +125,13 @@ const PropertyDetails = () => {
           {recommendations.map((item) => (
             <Link to={`/property/${item.id}`} key={item.id}>
               <div className="bg-white dark:bg-black border border-black/10 dark:border-white/10 rounded-lg p-3 shadow hover:shadow-md transition mt-3 mb-3">
-                <img
-                  src={item.images[0]}
-                  alt=""
-                  className="h-28 w-full object-cover rounded mb-2"
-                />
+                {Array.isArray(item.images) && item.images[0] && (
+                  <img
+                    src={item.images[0]}
+                    alt=""
+                    className="h-28 w-full object-cover rounded mb-2"
+                  />
+                )}
                 <p className="text-sm font-semibold">{item.title}</p>
                 <p className="text-primary text-sm">{item.price}</p>
 

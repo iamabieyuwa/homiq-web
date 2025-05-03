@@ -1,106 +1,113 @@
-// src/data/properties.js
-
+// Example property data for Homiq agent dashboard/demo
 const properties = [
-    {
-      id: 1,
-      title: "2 Bedroom Flat in Ugbowo",
-      location: "Ugbowo, Benin City",
-      type: "Flat",
-      category: "For Rent",
-      verified: true,
-      price: "₦400,000 / year",
-      images: [
-        "https://plus.unsplash.com/premium_photo-1689609950112-d66095626efb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2VzfGVufDB8fDB8fHww",
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-      ],
-      video: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
-      description:
-        "Spacious 2 bedroom flat with borehole, prepaid meter, POP ceiling, fenced and gated compound. 5 mins walk to Uniben main gate.",
-      contact: "08012345678",
-    },
-    {
-      id: 2,
-      title: "Self-Contain at Upper Sakponba",
-      location: "Upper Sakponba, Benin City",
-      type: "Self Contain",
-      category: "For Rent",
-      verified: false,
-      price: "₦150,000 / year",
-      images: [
-        "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80",
-      ],
-      video: "",
-      description:
-        "Clean self-contain with steady power, fenced, good water supply.",
-      contact: "08023456789",
-    },
-    {
-      id: 3,
-      title: "Mini Flat in Sapele Road",
-      location: "Sapele Road, Benin City",
-      type: "Mini Flat",
-      category: "For Rent",
-      verified: true,
-      price: "₦250,000 / year",
-      images: [
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-         "https://plus.unsplash.com/premium_photo-1689609950112-d66095626efb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2VzfGVufDB8fDB8fHww",
-      ],
-      video: "",
-      description:
-        "Mini flat with POP ceiling, tiled floors, borehole, and close to market.",
-      contact: "08034567890",
-    },
-    {
-      id: 4,
-      title: "Shop Space at Ring Road",
-      location: "Ring Road, Benin City",
-      type: "Commercial",
-      category: "For Rent",
-      verified: true,
-      price: "₦300,000 / year",
-      images: [
-        "https://images.unsplash.com/photo-1605371924599-2d0365da1ae0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHN0b3JlfGVufDB8fDB8fHww",
-        "https://images.unsplash.com/photo-1605371924599-2d0365da1ae0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHN0b3JlfGVufDB8fDB8fHww",
-      ],
-      video: "",
-      description:
-        "Strategic shop space with high foot traffic near bus terminals.",
-      contact: "08045678901",
-    },
-    {
-      id: 5,
-      title: "3 Bedroom Bungalow for Sale",
-      location: "GRA, Benin City",
-      type: "Bungalow",
-      category: "For Sale",
-      verified: true,
-      price: "₦18,000,000",
-      images: [
-        "https://images.unsplash.com/photo-1600585153929-74de1d3e3d2c?auto=format&fit=crop&w=800&q=80",
-      ],
-      video: "",
-      description:
-        "Well-finished bungalow with title documents, borehole, and fence.",
-      contact: "08056789012",
-    },
-    {
-      id: 6,
-      title: "Shortlet Apartment - Airport Road",
-      location: "Airport Road, Benin City",
-      type: "Shortlet",
-      category: "Shortlet",
-      verified: false,
-      price: "₦25,000 / night",
-      images: [
-        "https://images.unsplash.com/photo-1600585152935-1e811c44ecfd?auto=format&fit=crop&w=800&q=80",
-      ],
-      video: "",
-      description:
-        "Furnished apartment with AC, Wi-Fi, and generator backup. Ideal for travelers.",
-      contact: "08067890123",
-    },
-  ];
-  
-  export default properties;
-  
+  {
+    id: 1,
+    title: "2 Bedroom Flat in Ugbowo",
+    images: [
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=400&q=80"
+    ],
+    price: "₦1,200,000/year",
+    location: "Ugbowo, Benin City",
+    description: "Spacious 2 bedroom flat with modern amenities, located close to UNIBEN and public transport.",
+    verified: true,
+    sold: false,
+    category: "Flat",
+    agentId: 1,
+    contact: "08030000001"
+  },
+  {
+    id: 2,
+    title: "Mini Flat in Sapele Road",
+    images: [
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1424746219973-8fe3bd07d8e3?auto=format&fit=crop&w=400&q=80"
+    ],
+    price: "₦650,000/year",
+    location: "Sapele Road, Benin City",
+    description: "Affordable mini flat suitable for singles or young couples. Secure environment and steady water.",
+    verified: false,
+    sold: false,
+    category: "Mini Flat",
+    agentId: 1,
+    contact: "08030000002"
+  },
+  {
+    id: 3,
+    title: "Luxury Duplex in GRA",
+    images: [
+      "https://images.unsplash.com/photo-1482062364825-616fd23b8fc1?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1472224371017-08207f84aaae?auto=format&fit=crop&w=400&q=80"
+    ],
+    price: "₦7,500,000/year",
+    location: "GRA, Benin City",
+    description: "Fully serviced luxury duplex in a serene estate. 24/7 power, swimming pool, and gym included.",
+    verified: true,
+    sold: false,
+    category: "Duplex",
+    agentId: 2,
+    contact: "08030000003"
+  },
+  {
+    id: 4,
+    title: "Self-Contain at Uselu",
+    images: [
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80"
+    ],
+    price: "₦350,000/year",
+    location: "Uselu, Benin City",
+    description: "Compact self-contain with kitchen and bathroom, close to transport and market.",
+    verified: false,
+    sold: true,
+    category: "Self-Contain",
+    agentId: 1,
+    contact: "08030000004"
+  },
+  {
+    id: 5,
+    title: "3 Bedroom Bungalow at Ekosodin",
+    images: [
+      "https://images.unsplash.com/photo-1467987506553-8f3916508521?auto=format&fit=crop&w=400&q=80"
+    ],
+    price: "₦1,800,000/year",
+    location: "Ekosodin, Benin City",
+    description: "Spacious bungalow with fenced compound, 3 bedrooms, 3 bathrooms, and ample parking.",
+    verified: true,
+    sold: false,
+    category: "Bungalow",
+    agentId: 2,
+    contact: "08030000005"
+  },
+  {
+    id: 6,
+    title: "Student Hostel Room",
+    images: [
+      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80"
+    ],
+    price: "₦200,000/year",
+    location: "Ugbowo, Benin City",
+    description: "Single room in a student hostel, shared amenities, close to UNIBEN campus.",
+    verified: false,
+    sold: false,
+    category: "Hostel",
+    agentId: 3,
+    contact: "08030000006"
+  },
+  {
+    id: 7,
+    title: "4 Bedroom Luxury Flat",
+    images: [
+      "https://images.unsplash.com/photo-1502691876148-a84978e59af8?auto=format&fit=crop&w=400&q=80"
+    ],
+    price: "₦4,500,000/year",
+    location: "Ihama, GRA, Benin City",
+    description: "Luxury finishing, 4 bedrooms, 5 bathrooms, ACs in all rooms, standby generator. Ready to move in.",
+    verified: true,
+    sold: true,
+    category: "Flat",
+    agentId: 1,
+    contact: "08030000007"
+  }
+];
+
+export default properties;
