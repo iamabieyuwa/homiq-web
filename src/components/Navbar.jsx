@@ -1,28 +1,32 @@
 import { useState, useEffect } from "react";
-import { Moon, Sun, Menu, X } from "lucide-react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
-  const [darkMode, setDarkMode] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark", !darkMode);
-  };
+  const { agent } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setDarkMode(prefersDark);
-    document.documentElement.classList.toggle("dark", prefersDark);
+    // Optionally, keep your dark mode initialization here if you want,
+    // but the toggle is removed as requested.
   }, []);
 
   const navItems = [
+    { name: "Home", path: "/" },
+    { name: "Properties", path: "/properties" },
     { name: "Buy", path: "/buy" },
     { name: "Rent", path: "/rent" },
     { name: "Agents", path: "/agents" },
   ];
+
+  const agentLinks = agent
+    ? [
+        { name: "Dashboard", path: "/agent/dashboard" },
+      ]
+    : [];
 
   return (
     <nav className="w-full fixed top-0 z-50 backdrop-blur bg-white/70 dark:bg-black/60 border-b border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-md transition-colors">
@@ -58,34 +62,66 @@ const Navbar = () => {
               />
             </li>
           ))}
+          {agentLinks.map((item) => (
+            <li key={item.path} className="relative group cursor-pointer">
+              <NavLink
+                to={item.path}
+                className={({ isActive }) =>
+                  `hover:text-primary transition font-medium ${
+                    isActive && location.pathname === item.path ? "active-link" : ""
+                  }`
+                }
+                style={({ isActive }) => ({
+                  color: isActive && location.pathname === item.path ? "black" : "inherit",
+                })}
+              >
+                {item.name}
+              </NavLink>
+              <span
+                className={`absolute left-0 bottom-[-4px] h-[2px] bg-primary transition-all ${
+                  location.pathname === item.path ? "w-full" : "w-0"
+                }`}
+              />
+            </li>
+          ))}
         </ul>
 
         {/* Right Side */}
         <div className="flex-1 flex justify-end items-center gap-2">
-          {/* Hide these buttons on mobile, show from md up */}
-          <NavLink to="/agents/login" className="hidden md:block">
+          {/* Show agent avatar if logged in, else show auth buttons */}
+          {agent ? (
             <button
-              className="bg-primary text-white px-4 py-2 rounded-full text-xs md:text-sm hover:opacity-90 transition whitespace-nowrap min-w-[120px]"
-              type="button"
+              onClick={() => navigate("/agent/dashboard")}
+              className="ml-2 rounded-full border-2 border-primary p-0.5 hover:ring-2 ring-primary transition shadow"
+              style={{ lineHeight: 0 }}
+              title="Go to dashboard"
             >
-              Become an Agent
+              <img
+                src={agent.profilePicture || "/default-agent.png"}
+                alt="Agent Avatar"
+                className="w-8 h-8 rounded-full object-cover"
+              />
             </button>
-          </NavLink>
-          <NavLink to="/register" className="hidden md:block">
-            <button
-              className="bg-black text-white px-4 py-2 rounded-full text-xs md:text-sm hover:opacity-90 transition whitespace-nowrap min-w-[120px]"
-              type="button"
-            >
-              Create Account
-            </button>
-          </NavLink>
-          <button
-            onClick={toggleDarkMode}
-            className="ml-2 p-2 rounded-full transition cursor-pointer bg-white text-black"
-            type="button"
-          >
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+          ) : (
+            <>
+              <NavLink to="/agents/login" className="hidden md:block">
+                <button
+                  className="bg-primary text-white px-4 py-2 rounded-full text-xs md:text-sm hover:opacity-90 transition whitespace-nowrap min-w-[120px]"
+                  type="button"
+                >
+                  Become an Agent
+                </button>
+              </NavLink>
+              <NavLink to="/register" className="hidden md:block">
+                <button
+                  className="bg-black text-white px-4 py-2 rounded-full text-xs md:text-sm hover:opacity-90 transition whitespace-nowrap min-w-[120px]"
+                  type="button"
+                >
+                  Create Account
+                </button>
+              </NavLink>
+            </>
+          )}
           <button
             className="md:hidden p-2 rounded-md transition hover:bg-gray-200 dark:hover:bg-gray-800"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -124,23 +160,66 @@ const Navbar = () => {
                 />
               </li>
             ))}
-            {/* Show right-side buttons here in mobile menu */}
-            <NavLink to="/agents/login" onClick={() => setMenuOpen(false)}>
+            {agentLinks.map((item) => (
+              <li key={item.path} className="relative group cursor-pointer">
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `hover:text-primary transition font-medium ${
+                      isActive && location.pathname === item.path ? "active-link" : ""
+                    }`
+                  }
+                  style={({ isActive }) => ({
+                    color: isActive && location.pathname === item.path ? "black" : "inherit",
+                  })}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.name}
+                </NavLink>
+                <span
+                  className={`absolute left-0 bottom-[-4px] h-[2px] bg-primary transition-all ${
+                    location.pathname === item.path ? "w-full" : "w-0"
+                  }`}
+                />
+              </li>
+            ))}
+            {/* Show agent avatar in mobile menu if logged in */}
+            {agent && (
               <button
-                className="bg-primary text-white w-full py-2 rounded-full text-xs hover:opacity-90 transition whitespace-nowrap min-w-[120px] mt-2"
-                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  navigate("/agent/dashboard");
+                }}
+                className="flex items-center gap-2 mt-4"
               >
-                Become an Agent
+                <img
+                  src={agent.profilePicture || "/default-agent.png"}
+                  alt="Agent Avatar"
+                  className="w-8 h-8 rounded-full object-cover border-2 border-primary"
+                />
+                <span className="font-semibold text-primary">Dashboard</span>
               </button>
-            </NavLink>
-            <NavLink to="/register" onClick={() => setMenuOpen(false)}>
-              <button
-                className="bg-black text-white w-full py-2 rounded-full text-xs hover:opacity-90 transition whitespace-nowrap min-w-[120px] mt-2"
-                type="button"
-              >
-                Create Account
-              </button>
-            </NavLink>
+            )}
+            {!agent && (
+              <>
+                <NavLink to="/agents/login" onClick={() => setMenuOpen(false)}>
+                  <button
+                    className="bg-primary text-white w-full py-2 rounded-full text-xs hover:opacity-90 transition whitespace-nowrap min-w-[120px] mt-2"
+                    type="button"
+                  >
+                    Become an Agent
+                  </button>
+                </NavLink>
+                <NavLink to="/register" onClick={() => setMenuOpen(false)}>
+                  <button
+                    className="bg-black text-white w-full py-2 rounded-full text-xs hover:opacity-90 transition whitespace-nowrap min-w-[120px] mt-2"
+                    type="button"
+                  >
+                    Create Account
+                  </button>
+                </NavLink>
+              </>
+            )}
           </ul>
         </div>
       )}

@@ -1,282 +1,114 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import propertiesData from "../../data/properties";
-import AddListingModal from "../AddListingModal";
-import { FaCheckCircle, FaTag, FaEdit, FaTrash, FaCheck, FaTimes } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const AgentDashboard = () => {
-  // In a real app, you'd get this from auth
-  const agentId = 1;
-  const [properties, setProperties] = useState(propertiesData);
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [editId, setEditId] = useState(null);
-  const [editForm, setEditForm] = useState(null);
+export default function AgentDashboard() {
+  const { agent, logout } = useAuth();
+  const navigate = useNavigate();
 
-  // Listings for this agent
-  const myListings = properties.filter((p) => p.agentId === agentId);
-
-  // Add new listing callback
-  const handleAddListing = (newListing) => {
-    setProperties((prev) => [
-      ...prev,
-      {
-        ...newListing,
-        id: prev.length + 1,
-        images: newListing.images.filter(Boolean),
-        sold: false,
-        agentId,
-      },
-    ]);
-  };
-
-  // Delete listing
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this listing?")) {
-      setProperties((prev) => prev.filter((p) => p.id !== id));
-    }
-  };
-
-  // Mark as Sold/Available
-  const handleToggleSold = (id) => {
-    setProperties((prev) =>
-      prev.map((p) =>
-        p.id === id ? { ...p, sold: !p.sold } : p
-      )
-    );
-  };
-
-  // Edit
-  const handleEditClick = (listing) => {
-    setEditId(listing.id);
-    setEditForm({
-      ...listing,
-      images: listing.images?.[0] || "",
-    });
-  };
-
-  const handleEditChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setEditForm((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleEditImageChange = (e) => {
-    setEditForm((prev) => ({
-      ...prev,
-      images: e.target.value,
-    }));
-  };
-
-  const handleEditSubmit = (e) => {
-    e.preventDefault();
-    setProperties((prev) =>
-      prev.map((p) =>
-        p.id === editId
-          ? {
-              ...p,
-              ...editForm,
-              images: [editForm.images],
-            }
-          : p
-      )
-    );
-    setEditId(null);
-    setEditForm(null);
-  };
-
-  const handleEditCancel = () => {
-    setEditId(null);
-    setEditForm(null);
+  const handleLogout = () => {
+    logout();
+    navigate("/agent/login");
   };
 
   return (
-    <section className="px-2 py-6 md:px-4 md:py-10 bg-white dark:bg-black text-black dark:text-white min-h-screen">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
-          <h1 className="text-2xl md:text-3xl font-bold text-center sm:text-left w-full sm:w-auto">My Listings</h1>
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-white to-primary/5 dark:from-black dark:to-black">
+      <div className="bg-white dark:bg-black p-8 rounded-xl shadow-xl w-full max-w-lg flex flex-col items-center">
+        <div className="w-32 h-32 mb-4">
+          <img
+            src={agent.profilePicture || "/default-agent.png"}
+            alt={agent.fullName || "Agent"}
+            className="w-32 h-32 rounded-full border-4 border-primary shadow object-cover"
+          />
+        </div>
+        <h2 className="text-2xl font-bold mb-4 text-primary text-center">{agent.fullName}</h2>
+        <div className="flex flex-col items-center w-full mb-2 space-y-1">
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-xs text-gray-500 font-semibold">Email:</span>
+            <span className="text-gray-700 dark:text-gray-200">{agent.email}</span>
+          </div>
+          {agent.phone && (
+            <div className="flex items-center justify-center gap-2">
+              <span className="text-xs text-gray-500 font-semibold">Phone:</span>
+              <span className="text-gray-600 dark:text-gray-400">{agent.phone}</span>
+            </div>
+          )}
+          {agent.address && (
+            <div className="flex items-center justify-center gap-2">
+              <span className="text-xs text-gray-500 font-semibold">Address:</span>
+              <span className="text-gray-600 dark:text-gray-400">{agent.address}</span>
+            </div>
+          )}
+          {agent.about && (
+            <div className="flex items-center justify-center gap-2">
+              <span className="text-xs text-gray-500 font-semibold">About:</span>
+              <span className="text-gray-700 dark:text-gray-300 italic text-center">{agent.about}</span>
+            </div>
+          )}
+        </div>
+        <div className="flex gap-4 my-3 justify-center">
+          {agent.linkedin && (
+            <a
+              href={agent.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline"
+            >
+              LinkedIn
+            </a>
+          )}
+          {agent.instagram && (
+            <a
+              href={agent.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-pink-600 hover:underline"
+            >
+              Instagram
+            </a>
+          )}
+          {agent.facebook && (
+            <a
+              href={agent.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-800 hover:underline"
+            >
+              Facebook
+            </a>
+          )}
+          {agent.twitter && (
+            <a
+              href={agent.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sky-600 hover:underline"
+            >
+              Twitter/X
+            </a>
+          )}
+        </div>
+        {/* Flex row for dashboard action buttons */}
+        <div className="flex flex-wrap gap-4 justify-center w-full mt-6 mb-2">
           <button
-            onClick={() => setShowAddModal(true)}
-            className="bg-primary text-white px-4 py-2 rounded-full text-sm hover:opacity-90 transition w-full sm:w-auto"
+            className="bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-2 rounded transition"
+            onClick={() => navigate("/agent/listings")}
           >
-            + Add New Listing
+            My Listings
+          </button>
+          <button
+            className="bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-2 rounded transition"
+            onClick={() => navigate("/agent/edit-profile")}
+          >
+            Edit Profile
+          </button>
+          <button
+            className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded transition"
+            onClick={handleLogout}
+          >
+            Logout
           </button>
         </div>
-        <AddListingModal
-          open={showAddModal}
-          onClose={() => setShowAddModal(false)}
-          onAdd={handleAddListing}
-        />
-
-        {myListings.length === 0 ? (
-          <div className="text-center text-gray-500 mt-20">No listings yet.</div>
-        ) : (
-          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {myListings.map((listing) =>
-              editId === listing.id ? (
-                <div
-                  key={listing.id}
-                  className="bg-white dark:bg-black border border-black/10 dark:border-white/10 rounded-lg shadow-md overflow-hidden transition relative"
-                >
-                  <form onSubmit={handleEditSubmit} className="p-4 space-y-2">
-                    <input
-                      className="w-full border px-3 py-2 rounded"
-                      name="title"
-                      placeholder="Title"
-                      value={editForm.title}
-                      onChange={handleEditChange}
-                      required
-                    />
-                    <input
-                      className="w-full border px-3 py-2 rounded"
-                      name="location"
-                      placeholder="Location"
-                      value={editForm.location}
-                      onChange={handleEditChange}
-                      required
-                    />
-                    <input
-                      className="w-full border px-3 py-2 rounded"
-                      name="price"
-                      placeholder="Price"
-                      value={editForm.price}
-                      onChange={handleEditChange}
-                      required
-                    />
-                    <input
-                      className="w-full border px-3 py-2 rounded"
-                      name="category"
-                      placeholder="Category"
-                      value={editForm.category}
-                      onChange={handleEditChange}
-                    />
-                    <input
-                      className="w-full border px-3 py-2 rounded"
-                      name="images"
-                      placeholder="Image URL"
-                      value={editForm.images}
-                      onChange={handleEditImageChange}
-                    />
-                    <input
-                      className="w-full border px-3 py-2 rounded"
-                      name="contact"
-                      placeholder="Contact"
-                      value={editForm.contact}
-                      onChange={handleEditChange}
-                    />
-                    <textarea
-                      className="w-full border px-3 py-2 rounded"
-                      name="description"
-                      placeholder="Description"
-                      value={editForm.description}
-                      onChange={handleEditChange}
-                      rows={2}
-                    />
-                    <label className="inline-flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        name="verified"
-                        checked={editForm.verified}
-                        onChange={handleEditChange}
-                      />
-                      Verified
-                    </label>
-                    <div className="flex flex-col xs:flex-row gap-2 mt-2">
-                      <button
-                        type="submit"
-                        className="bg-primary text-white px-4 py-1 rounded flex items-center gap-2 justify-center"
-                      >
-                        <FaCheck /> Save
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleEditCancel}
-                        className="bg-gray-500 text-white px-4 py-1 rounded flex items-center gap-2 justify-center"
-                      >
-                        <FaTimes /> Cancel
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              ) : (
-                <div
-                  key={listing.id}
-                  className="bg-white dark:bg-black border border-black/10 dark:border-white/10 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition relative flex flex-col"
-                >
-                  <div className="relative">
-                    <img
-                      src={listing.images && listing.images[0]}
-                      alt={listing.title}
-                      className="w-full h-44 sm:h-48 object-cover"
-                    />
-                    {listing.sold && (
-                      <div className="absolute top-2 left-2 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
-                        Sold
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-4 space-y-2 flex-1 flex flex-col">
-                    <h3 className="text-lg font-semibold">{listing.title}</h3>
-                    <p className="text-primary font-bold">{listing.price}</p>
-                    <p className="text-sm">{listing.location}</p>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      <span className="inline-flex items-center gap-1 text-xs bg-primary text-white px-2 py-1 rounded">
-                        <FaTag size={12} />
-                        {listing.category}
-                      </span>
-                      {listing.verified && (
-                        <span className="inline-flex items-center gap-1 text-xs bg-green-600 text-white px-2 py-1 rounded">
-                          <FaCheckCircle size={12} />
-                          Verified
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      <button
-                        title="Edit"
-                        onClick={() => handleEditClick(listing)}
-                        className="text-blue-500 hover:text-blue-800 flex items-center gap-1"
-                      >
-                        <FaEdit /> <span className="hidden xs:inline">Edit</span>
-                      </button>
-                      <button
-                        title="Delete"
-                        onClick={() => handleDelete(listing.id)}
-                        className="text-red-500 hover:text-red-800 flex items-center gap-1"
-                      >
-                        <FaTrash /> <span className="hidden xs:inline">Delete</span>
-                      </button>
-                      <button
-                        title={listing.sold ? "Mark as Available" : "Mark as Sold"}
-                        onClick={() => handleToggleSold(listing.id)}
-                        className={`flex items-center gap-1 ${
-                          listing.sold
-                            ? "text-yellow-600 hover:text-yellow-900"
-                            : "text-green-600 hover:text-green-900"
-                        }`}
-                      >
-                        <FaCheck />
-                        <span className="hidden xs:inline">
-                          {listing.sold ? "Mark as Available" : "Mark as Sold"}
-                        </span>
-                      </button>
-                      <Link
-                        to={`/property/${listing.id}`}
-                        className="text-primary underline ml-auto block"
-                      >
-                        View
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
-        )}
       </div>
     </section>
   );
-};
-
-export default AgentDashboard;
+}

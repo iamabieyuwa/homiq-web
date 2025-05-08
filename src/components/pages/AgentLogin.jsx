@@ -1,95 +1,95 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
-const AgentLogin = () => {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function AgentLogin() {
+  const [form, setForm] = useState({ email: "", password: "", stayLoggedIn: false });
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { agent, login, loading } = useAuth();
+  const navigate = useNavigate();
 
-  // Placeholder authentication logic
-  const handleLogin = (e) => {
-    e.preventDefault();
+  // If logged in, redirect to dashboard
+  if (agent) {
+    return <Navigate to="/agent/dashboard" replace />;
+  }
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
     setError("");
-    setLoading(true);
+  };
 
-    // Simple validation
-    if (!email || !password) {
-      setError("Please enter both email and password.");
-      setLoading(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.email || !form.password) {
+      setError("All fields are required!");
       return;
     }
-
-    // Simulate an API call (replace with real API logic)
-    setTimeout(() => {
-      // Dummy check — in production, check credentials via API
-      if (email === "agent@example.com" && password === "password123") {
-        setLoading(false);
-        navigate("/agent/dashboard");
-      } else {
-        setError("Invalid email or password.");
-        setLoading(false);
-      }
-    }, 1200);
+    // Simulate login (accept any credentials for demo)
+    try {
+      await login(form);
+      navigate("/agent/dashboard");
+    } catch {
+      setError("Invalid login credentials.");
+    }
   };
 
   return (
-    <section className="min-h-screen bg-white dark:bg-black flex items-center justify-center px-4 py-16">
-      <div className="max-w-md w-full bg-white dark:bg-black shadow-md rounded-lg p-8 border border-black/10 dark:border-white/10">
-        <h2 className="text-2xl font-bold text-center mb-6 text-black dark:text-white">
-          Agent Login
-        </h2>
-
-        <form className="space-y-4" onSubmit={handleLogin}>
-          <div>
-            <label className="block text-sm mb-1 text-black dark:text-white">
-              Email
-            </label>
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-white to-primary/5 dark:from-black dark:to-black">
+      <div className="bg-white dark:bg-black p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-4 text-center">Agent Login</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            className="w-full border px-3 py-2 rounded"
+            name="email"
+            type="email"
+            placeholder="Email Address"
+            value={form.email}
+            onChange={handleChange}
+            autoComplete="email"
+            required
+          />
+          <input
+            className="w-full border px-3 py-2 rounded"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            autoComplete="current-password"
+            required
+          />
+          <label className="flex items-center gap-2 text-sm">
             <input
-              type="email"
-              placeholder="agent@example.com"
-              className="w-full px-4 py-2 border border-black/20 dark:border-white/20 rounded bg-white dark:bg-black text-black dark:text-white"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoFocus
+              type="checkbox"
+              name="stayLoggedIn"
+              checked={form.stayLoggedIn}
+              onChange={handleChange}
             />
-          </div>
-
-          <div>
-            <label className="block text-sm mb-1 text-black dark:text-white">
-              Password
-            </label>
-            <input
-              type="password"
-              placeholder="Your password"
-              className="w-full px-4 py-2 border border-black/20 dark:border-white/20 rounded bg-white dark:bg-black text-black dark:text-white"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          {error && (
-            <div className="text-red-600 text-sm text-center">{error}</div>
-          )}
-
+            Stay logged in
+          </label>
+          {error && <div className="text-red-600 text-sm">{error}</div>}
           <button
             type="submit"
-            className="w-full bg-primary text-white py-2 rounded-full font-semibold hover:opacity-90 transition"
+            className="w-full bg-primary text-white py-2 rounded font-semibold mt-2"
             disabled={loading}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-
-        <p className="text-center text-xs text-gray-500 mt-6">
-          For demo: <span className="font-mono">agent@example.com / password123</span>
-        </p>
+        <div className="text-sm text-center mt-4">
+          Don&apos;t have an account?{" "}
+          <a
+            href="/agent/signup"
+            className="text-primary hover:underline"
+          >
+            Sign up
+          </a>
+        </div>
       </div>
     </section>
   );
-};
-
-export default AgentLogin;
+}
