@@ -6,19 +6,15 @@ import { useAuth } from "../context/AuthContext";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-  const { agent } = useAuth();
+  const { agent, user } = useAuth(); // Assuming `useAuth` provides `agent` and `user`
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Optionally, keep your dark mode initialization here if you want,
-    // but the toggle is removed as requested.
-  }, []);
+  
 
+  // Dynamically change the "Properties" or "Buy" label based on login state
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Properties", path: "/properties" },
-    { name: "Buy", path: "/buy" },
-    { name: "Rent", path: "/rent" },
+    { name: user ? "Buy" : "Properties", path: "/properties" },
     { name: "Agents", path: "/agents" },
   ];
 
@@ -39,7 +35,7 @@ const Navbar = () => {
         </div>
 
         {/* Center Links */}
-        <ul className="hidden md:flex gap-6 text-sm font-medium justify-center flex-1 text-black dark:text-white">
+        <ul className="hidden md:flex gap-10 text-sm font-medium justify-center flex-1 text-black dark:text-white">
           {navItems.map((item, index) => (
             <li key={index} className="relative group cursor-pointer">
               <NavLink

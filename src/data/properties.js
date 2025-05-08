@@ -5,7 +5,7 @@ const properties = [
     title: "2 Bedroom Flat in Ugbowo",
     images: [
       "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
-      "https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=400&q=80"
+      "https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=400&q=80",
     ],
     price: "₦1,200,000/year",
     location: "Ugbowo, Benin City",
@@ -21,7 +21,7 @@ const properties = [
     title: "Mini Flat in Sapele Road",
     images: [
       "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=400&q=80",
-      "https://images.unsplash.com/photo-1424746219973-8fe3bd07d8e3?auto=format&fit=crop&w=400&q=80"
+      "https://images.unsplash.com/photo-1424746219973-8fe3bd07d8e3?auto=format&fit=crop&w=400&q=80",
     ],
     price: "₦650,000/year",
     location: "Sapele Road, Benin City",
@@ -37,7 +37,7 @@ const properties = [
     title: "Luxury Duplex in GRA",
     images: [
       "https://images.unsplash.com/photo-1482062364825-616fd23b8fc1?auto=format&fit=crop&w=400&q=80",
-      "https://images.unsplash.com/photo-1472224371017-08207f84aaae?auto=format&fit=crop&w=400&q=80"
+      "https://images.unsplash.com/photo-1472224371017-08207f84aaae?auto=format&fit=crop&w=400&q=80",
     ],
     price: "₦7,500,000/year",
     location: "GRA, Benin City",

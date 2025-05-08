@@ -1,21 +1,39 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaChevronDown } from "react-icons/fa";
 import properties from "../data/properties";
 
 export default function Properties() {
   const [search, setSearch] = useState("");
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
+  const [location, setLocation] = useState("");
+  const [category, setCategory] = useState("");
+  const [verified, setVerified] = useState("");
   const navigate = useNavigate();
 
-  // Utility to extract numeric price for filtering
+  // Unique lists for dropdowns
+  const locations = [...new Set(properties.map((p) => p.location))];
+  const categories = [...new Set(properties.map((p) => p.category))];
+  // Gather all price numbers, sort and dedupe for options
+  const prices = [
+    ...new Set(
+      properties
+        .map((p) => {
+          const match = p.price?.match(/([\d,]+)/);
+          return match ? Number(match[1].replace(/,/g, "")) : 0;
+        })
+        .filter((n) => n > 0)
+    ),
+  ].sort((a, b) => a - b);
+
   function getPriceNumber(priceStr) {
     if (!priceStr) return 0;
     const match = priceStr.match(/([\d,]+)/);
     return match ? Number(match[1].replace(/,/g, "")) : 0;
   }
 
-  // Filter logic
+  // Filtering logic
   const filtered = properties.filter((p) => {
     const matchesSearch =
       p.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -24,10 +42,22 @@ export default function Properties() {
     const priceNum = getPriceNumber(p.price);
     const matchesMin = min === "" || priceNum >= Number(min);
     const matchesMax = max === "" || priceNum <= Number(max);
-    return matchesSearch && matchesMin && matchesMax;
+    const matchesLocation = !location || p.location === location;
+    const matchesCategory = !category || p.category === category;
+    const matchesVerified =
+      !verified ||
+      (verified === "true" && p.verified) ||
+      (verified === "false" && !p.verified);
+    return (
+      matchesSearch &&
+      matchesMin &&
+      matchesMax &&
+      matchesLocation &&
+      matchesCategory &&
+      matchesVerified
+    );
   });
 
-  // For price/period display on cards
   function getPriceParts(priceStr) {
     if (!priceStr) return { amount: 0, period: "" };
     const match = priceStr.match(/([\d,]+)/);
@@ -37,6 +67,25 @@ export default function Properties() {
     return { amount, period };
   }
 
+  // Utility: select dropdown with icon
+  function SelectWithIcon({ value, onChange, children, className = "" }) {
+    return (
+      <div className={`relative min-w-[100px] max-w-[220px] w-full`}>
+        <select
+          value={value}
+          onChange={onChange}
+          className={
+            "border rounded px-3 pr-10 py-2 w-full appearance-none whitespace-nowrap truncate overflow-hidden " +
+            className
+          }
+        >
+          {children}
+        </select>
+        <FaChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" />
+      </div>
+    );
+  }
+
   return (
     <section className="max-w-6xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6 text-primary">Browse Properties</h1>
@@ -44,32 +93,58 @@ export default function Properties() {
       <form className="flex flex-wrap gap-4 mb-8 items-end">
         <input
           type="search"
-          className="border rounded px-3 py-2 flex-1 min-w-[200px]"
-          placeholder="Search by title, description, or location"
+          className="border rounded px-2 py-2 flex-1 min-w-[200px]"
+          placeholder=" Title, description, location"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <div>
+          <label className="block text-xs font-semibold text-gray-500 mb-1">Location</label>
+          <SelectWithIcon value={location} onChange={e => setLocation(e.target.value)}>
+            <option value="">All</option>
+            {locations.map((loc) => (
+              <option key={loc} value={loc}>{loc}</option>
+            ))}
+          </SelectWithIcon>
+        </div>
+        <div>
+          <label className="block text-xs font-semibold text-gray-500 mb-1">Category</label>
+          <SelectWithIcon value={category} onChange={e => setCategory(e.target.value)}>
+            <option value="">All</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </SelectWithIcon>
+        </div>
+        <div>
+          <label className="block text-xs font-semibold text-gray-500 mb-1">Verified</label>
+          <SelectWithIcon value={verified} onChange={e => setVerified(e.target.value)} className="min-w-[100px] max-w-[140px]">
+            <option value="">All</option>
+            <option value="true">Verified</option>
+            <option value="false">Not Verified</option>
+          </SelectWithIcon>
+        </div>
+        <div>
           <label className="block text-xs font-semibold text-gray-500 mb-1">Min Price</label>
-          <input
-            type="number"
-            className="border rounded px-3 py-2 w-28"
-            placeholder="Min"
-            value={min}
-            onChange={(e) => setMin(e.target.value)}
-            min={0}
-          />
+          <SelectWithIcon value={min} onChange={e => setMin(e.target.value)} className="w-28">
+            <option value="">Min</option>
+            {prices.map((price) => (
+              <option key={price} value={price}>
+                ₦{price.toLocaleString()}
+              </option>
+            ))}
+          </SelectWithIcon>
         </div>
         <div>
           <label className="block text-xs font-semibold text-gray-500 mb-1">Max Price</label>
-          <input
-            type="number"
-            className="border rounded px-3 py-2 w-28"
-            placeholder="Max"
-            value={max}
-            onChange={(e) => setMax(e.target.value)}
-            min={0}
-          />
+          <SelectWithIcon value={max} onChange={e => setMax(e.target.value)} className="w-28">
+            <option value="">Max</option>
+            {prices.map((price) => (
+              <option key={price} value={price}>
+                ₦{price.toLocaleString()}
+              </option>
+            ))}
+          </SelectWithIcon>
         </div>
       </form>
 

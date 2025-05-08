@@ -12,6 +12,7 @@ import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./components/pages/Register";
 import Login from "./components/pages/Login";
+import Agents from "./components/pages/Agents";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/property/:id" element={<PropertyDetails />} />
           <Route path="agents/login" element={<AgentLogin />} />
           <Route path="agent/signup" element={<AgentSignup />} />
+          <Route path="agents" element={<Agents />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="properties" element={<Properties />} />
