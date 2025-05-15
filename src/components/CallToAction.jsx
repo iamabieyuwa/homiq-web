@@ -1,6 +1,15 @@
 import Footer from "./Footer";
-
+import { useNavigate } from "react-router-dom";
 const CallToAction = () => {
+  const navigate = useNavigate();
+
+  const PostProperty = () => {
+    navigate("/agents/login");
+  };
+
+  const BrowseListings = () => {
+    navigate("/properties");
+  };
     return (
       <>
       <section className="px-4 py-16 bg-primary text-white text-center">
@@ -12,10 +21,10 @@ const CallToAction = () => {
             List your apartment, house, or commercial property in just a few clicks.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-white text-primary cursor-pointer font-semibold px-6 py-3 rounded-full hover:opacity-90 transition">
+            <button onClick={PostProperty} className="bg-white text-primary cursor-pointer font-semibold px-6 py-3 rounded-full hover:opacity-90 transition">
               Post a Property
             </button>
-            <button className="border border-white px-6 py-3 rounded-full font-semibold cursor-pointer hover-opacity:90 hover:text-primary transition ">
+            <button onClick={BrowseListings} className="border border-white px-6 py-3 rounded-full font-semibold cursor-pointer hover-opacity:90 hover:text-primary transition ">
               Browse Listings
             </button>
           </div>

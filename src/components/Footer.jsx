@@ -25,12 +25,10 @@ export default function Footer() {
         </div>
 
 
-        <nav className="flex flex-wrap gap-6 justify-center text-sm">
+        <nav className="flex flex-wrap gap-12 justify-center text-sm">
           <Link to="/" className="hover:text-red-500">Home</Link>
           <Link to="/properties" className="hover:text-red-500">Browse</Link>
-          <Link to="/agent/listings" className="hover:text-red-500">Agent Dashboard</Link>
-          <Link to="/about" className="hover:text-red-500">About</Link>
-          <Link to="/contact" className="hover:text-red-500">Buy</Link>
+          <Link to="/agents" className="hover:text-red-500">Agents</Link>
         </nav>
         
         <div className="text-xs text-gray-400 mt-2 md:mt-0 text-center md:text-right w-full md:w-auto">

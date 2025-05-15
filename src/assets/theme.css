@@ -16,17 +16,7 @@
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
   }
-  .dark .navbar {
-    background-color: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 1px 4px rgba(255, 255, 255, 0.06);
-  }
-  /* Dark mode overrides */
-  .dark {
-    --color-primary: #e50914;
-    --color-black: #ffffff;
-    --color-white: #000000;
-    --color-gray-dark:rgb(255, 252, 252);
-  }
+  
   .nav-link {
     position: relative;
     padding: 0.5rem;
@@ -92,9 +82,7 @@
   }
   
   /* Dark mode navbar shadow */
-  .dark .navbar {
-    box-shadow: 0 1px 4px rgba(255, 255, 255, 0.05);
-  }
+ 
   
 
   /* HERO SECTION */
@@ -102,9 +90,5 @@
     background: linear-gradient(to bottom, #ffffff, #f9f9f9);
     
   }
-  
-  .dark .hero-section {
-    background: linear-gradient(to bottom, #111111, #000000);
-  }
-  
+
   
