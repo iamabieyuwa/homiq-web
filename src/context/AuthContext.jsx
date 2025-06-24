@@ -5,6 +5,7 @@ const mockAgent = {
   id: 1,
   fullName: "Agent Demo",
   email: "agent@homiq.com",
+  password: "123456",
   profilePicture: "",
 };
 
@@ -29,20 +30,25 @@ export function AuthProvider({ children }) {
 
   const [loading, setLoading] = useState(false);
 
-  // Login function for agent
+  // Login function for agent: only allow correct demo credentials
   function loginAgent({ email, password, stayLoggedIn }) {
     setLoading(true);
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
-        setAgent({ ...mockAgent, email });
-        if (stayLoggedIn) {
-          localStorage.setItem(
-            "agentAuth",
-            JSON.stringify({ ...mockAgent, email })
-          );
+        if (
+          email === mockAgent.email &&
+          password === mockAgent.password
+        ) {
+          setAgent({ ...mockAgent });
+          if (stayLoggedIn) {
+            localStorage.setItem("agentAuth", JSON.stringify({ ...mockAgent }));
+          }
+          setLoading(false);
+          resolve(true);
+        } else {
+          setLoading(false);
+          reject(new Error("Invalid agent credentials"));
         }
-        setLoading(false);
-        resolve(true);
       }, 900);
     });
   }
@@ -95,6 +101,7 @@ export function AuthProvider({ children }) {
         loading,
         loginAgent,
         loginUser,
+        login: loginAgent, // <-- Now "login" points to "loginAgent"
         logout,
       }}
     >

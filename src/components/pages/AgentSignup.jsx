@@ -1,5 +1,9 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  FaUser, FaEnvelope, FaPhoneAlt, FaHome, FaLock, FaLinkedin,
+  FaInstagram, FaFacebookF, FaTwitter, FaCamera
+} from "react-icons/fa";
 
 const initialForm = {
   fullName: "",
@@ -102,68 +106,92 @@ export default function AgentSignup() {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-white to-primary/5 dark:from-black dark:to-black">
-      <div className="bg-white dark:bg-black p-6 rounded-xl shadow-xl w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-primary">Agent Signup</h2>
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <input
-            className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-            name="fullName"
-            placeholder="Full Name"
-            value={form.fullName}
-            onChange={handleChange}
-            autoComplete="name"
-            required
-          />
-          <input
-            className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-            name="email"
-            type="email"
-            placeholder="Email Address"
-            value={form.email}
-            onChange={handleChange}
-            autoComplete="email"
-            required
-          />
-          <input
-            className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-            name="phone"
-            type="tel"
-            placeholder="Phone Number"
-            value={form.phone}
-            onChange={handleChange}
-            autoComplete="tel"
-            required
-          />
-          <input
-            className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-            name="address"
-            placeholder="Address"
-            value={form.address}
-            onChange={handleChange}
-            required
-          />
+    <section className="min-h-screen flex items-start justify-center bg-gradient-to-br from-primary/10 via-white to-primary/5 pt-8 sm:pt-14">
+      <div className="w-full max-w-xs">
+        <div
+          className="bg-white rounded-2xl shadow-2xl border border-black px-4 py-8 flex flex-col items-center"
+          style={{
+            marginTop: 'min(7vh, 2.5rem)'
+          }}
+        >
+          <div className="flex items-center justify-center mb-4 bg-black text-white rounded-full w-12 h-12">
+            <FaUser className="text-2xl" />
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-primary text-center">Agent Signup</h2>
+          <form onSubmit={handleSubmit} className="space-y-4 w-full">
+            <div className="flex items-center border border-black/80 rounded-lg px-3 py-2 bg-white focus-within:shadow-lg">
+              <FaUser className="text-black mr-2 opacity-80" />
+              <input
+                className="flex-1 outline-none bg-transparent text-black text-base placeholder:text-gray-400"
+                name="fullName"
+                placeholder="Full Name"
+                value={form.fullName}
+                onChange={handleChange}
+                autoComplete="name"
+                required
+              />
+            </div>
+            <div className="flex items-center border border-black/80 rounded-lg px-3 py-2 bg-white focus-within:shadow-lg">
+              <FaEnvelope className="text-black mr-2 opacity-80" />
+              <input
+                className="flex-1 outline-none bg-transparent text-black text-base placeholder:text-gray-400"
+                name="email"
+                type="email"
+                placeholder="Email Address"
+                value={form.email}
+                onChange={handleChange}
+                autoComplete="email"
+                required
+              />
+            </div>
+            <div className="flex items-center border border-black/80 rounded-lg px-3 py-2 bg-white focus-within:shadow-lg">
+              <FaPhoneAlt className="text-black mr-2 opacity-80" />
+              <input
+                className="flex-1 outline-none bg-transparent text-black text-base placeholder:text-gray-400"
+                name="phone"
+                type="tel"
+                placeholder="Phone Number"
+                value={form.phone}
+                onChange={handleChange}
+                autoComplete="tel"
+                required
+              />
+            </div>
+            <div className="flex items-center border border-black/80 rounded-lg px-3 py-2 bg-white focus-within:shadow-lg">
+              <FaHome className="text-black mr-2 opacity-80" />
+              <input
+                className="flex-1 outline-none bg-transparent text-black text-base placeholder:text-gray-400"
+                name="address"
+                placeholder="Address"
+                value={form.address}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          {/* Profile Picture File Selector */}
-          <div>
-            <label className="block mb-2 text-sm font-medium text-primary">
-              Profile Picture <span className="text-red-600">*</span>
-            </label>
-            {previewUrl ? (
-              <div className="flex flex-col items-center gap-2 mb-2">
-                <img
-                  src={previewUrl}
-                  alt="Profile Preview"
-                  className="w-32 h-32 rounded-full object-cover border-2 border-primary shadow"
-                />
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={handleEditImage}
-                    className="text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 text-sm"
-                  >
-                    Edit
-                  </button>
+            {/* Profile Picture File Selector */}
+            <div>
+              <label className="block mb-2 text-sm font-medium text-primary">
+                Profile Picture <span className="text-red-600">*</span>
+              </label>
+              {previewUrl ? (
+                <div className="flex flex-col items-center gap-2 mb-2">
+                  <div className="relative">
+                    <img
+                      src={previewUrl}
+                      alt="Profile Preview"
+                      className="w-24 h-24 rounded-full object-cover border-2 border-primary shadow"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleEditImage}
+                      className="absolute bottom-0 right-0 bg-primary text-white rounded-full p-2 border-2 border-white shadow hover:bg-primary/90 transition"
+                      title="Edit photo"
+                      tabIndex={-1}
+                    >
+                      <FaCamera className="text-xs" />
+                    </button>
+                  </div>
                   <button
                     type="button"
                     onClick={handleRemoveImage}
@@ -172,119 +200,151 @@ export default function AgentSignup() {
                     Remove
                   </button>
                 </div>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center gap-2 mb-2">
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current.click()}
-                  className="bg-primary text-white px-4 py-2 rounded hover:bg-primary/90 transition"
-                >
-                  Select Profile Picture
-                </button>
-                <div className="text-xs text-gray-500">Only image files allowed</div>
-              </div>
-            )}
-            <input
-              type="file"
-              ref={fileInputRef}
-              accept="image/*"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-            {!form.profilePicture && (
-              <div className="text-xs text-red-600 mt-1">Profile picture is required.</div>
-            )}
-          </div>
+              ) : (
+                <div className="flex flex-col items-center gap-2 mb-2">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current.click()}
+                    className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded hover:bg-primary/90 transition"
+                  >
+                    <FaCamera /> Select Profile Picture
+                  </button>
+                  <div className="text-xs text-gray-500">Only image files allowed</div>
+                </div>
+              )}
+              <input
+                type="file"
+                ref={fileInputRef}
+                accept="image/*"
+                className="hidden"
+                onChange={handleFileChange}
+              />
+              {!form.profilePicture && (
+                <div className="text-xs text-red-600 mt-1">Profile picture is required.</div>
+              )}
+            </div>
 
-          <textarea
-            className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-            name="about"
-            placeholder="Short Bio/About (optional)"
-            value={form.about}
-            onChange={handleChange}
-            rows={2}
-          />
-          {/* Social Media Links */}
-          <div>
-            <label className="block mb-1 text-sm font-medium">Social Media Links (optional)</label>
-            <div className="grid grid-cols-1 gap-2">
+            <textarea
+              className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary text-black"
+              name="about"
+              placeholder="Short Bio/About (optional)"
+              value={form.about}
+              onChange={handleChange}
+              rows={2}
+            />
+            {/* Social Media Links */}
+            <div>
+              <label className="block mb-1 text-sm font-medium">Social Media Links (optional)</label>
+              <div className="grid grid-cols-1 gap-2">
+                <div className="flex items-center border border-black/20 rounded-lg px-3 py-2 bg-white">
+                  <FaLinkedin className="text-blue-700 mr-2" />
+                  <input
+                    className="flex-1 outline-none bg-transparent text-black text-base placeholder:text-gray-400"
+                    name="linkedin"
+                    type="url"
+                    placeholder="LinkedIn URL"
+                    value={form.linkedin}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="flex items-center border border-black/20 rounded-lg px-3 py-2 bg-white">
+                  <FaInstagram className="text-pink-600 mr-2" />
+                  <input
+                    className="flex-1 outline-none bg-transparent text-black text-base placeholder:text-gray-400"
+                    name="instagram"
+                    type="url"
+                    placeholder="Instagram URL"
+                    value={form.instagram}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="flex items-center border border-black/20 rounded-lg px-3 py-2 bg-white">
+                  <FaFacebookF className="text-blue-600 mr-2" />
+                  <input
+                    className="flex-1 outline-none bg-transparent text-black text-base placeholder:text-gray-400"
+                    name="facebook"
+                    type="url"
+                    placeholder="Facebook URL"
+                    value={form.facebook}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="flex items-center border border-black/20 rounded-lg px-3 py-2 bg-white">
+                  <FaTwitter className="text-sky-500 mr-2" />
+                  <input
+                    className="flex-1 outline-none bg-transparent text-black text-base placeholder:text-gray-400"
+                    name="twitter"
+                    type="url"
+                    placeholder="Twitter/X URL"
+                    value={form.twitter}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+            </div>
+            {/* Passwords */}
+            <div className="flex items-center border border-black/80 rounded-lg px-3 py-2 bg-white focus-within:shadow-lg">
+              <FaLock className="text-black mr-2 opacity-80" />
               <input
-                className="w-full border px-3 py-2 rounded"
-                name="linkedin"
-                type="url"
-                placeholder="LinkedIn URL"
-                value={form.linkedin}
+                className="flex-1 outline-none bg-transparent text-black text-base placeholder:text-gray-400"
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={form.password}
                 onChange={handleChange}
-              />
-              <input
-                className="w-full border px-3 py-2 rounded"
-                name="instagram"
-                type="url"
-                placeholder="Instagram URL"
-                value={form.instagram}
-                onChange={handleChange}
-              />
-              <input
-                className="w-full border px-3 py-2 rounded"
-                name="facebook"
-                type="url"
-                placeholder="Facebook URL"
-                value={form.facebook}
-                onChange={handleChange}
-              />
-              <input
-                className="w-full border px-3 py-2 rounded"
-                name="twitter"
-                type="url"
-                placeholder="Twitter/X URL"
-                value={form.twitter}
-                onChange={handleChange}
+                autoComplete="new-password"
+                required
               />
             </div>
+            <div className="flex items-center border border-black/80 rounded-lg px-3 py-2 bg-white focus-within:shadow-lg">
+              <FaLock className="text-black mr-2 opacity-80" />
+              <input
+                className="flex-1 outline-none bg-transparent text-black text-base placeholder:text-gray-400"
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirm Password"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                autoComplete="new-password"
+                required
+              />
+            </div>
+
+            {error && <div className="text-red-600 text-sm">{error}</div>}
+            {success && <div className="text-green-600 text-sm">{success}</div>}
+
+            <button
+              type="submit"
+              className="w-full bg-primary text-white py-2 rounded-lg font-semibold mt-2 hover:bg-primary/90 transition flex items-center justify-center gap-2"
+            >
+              <FaUser /> Sign Up
+            </button>
+          </form>
+          <div className="text-sm text-center mt-5">
+            Already have an account?{" "}
+            <a
+              href="/agents/login"
+              className="text-primary hover:underline font-semibold"
+            >
+              Login
+            </a>
           </div>
-          {/* Passwords */}
-          <input
-            className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-            autoComplete="new-password"
-            required
-          />
-          <input
-            className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            value={form.confirmPassword}
-            onChange={handleChange}
-            autoComplete="new-password"
-            required
-          />
-
-          {error && <div className="text-red-600 text-sm">{error}</div>}
-          {success && <div className="text-green-600 text-sm">{success}</div>}
-
-          <button
-            type="submit"
-            className="w-full bg-primary text-white py-2 rounded font-semibold mt-2 hover:bg-primary/90 transition"
-          >
-            Sign Up
-          </button>
-        </form>
-        <div className="text-sm text-center mt-5">
-          Already have an account?{" "}
-          <a
-            href="/agents/login"
-            className="text-primary hover:underline font-semibold"
-          >
-            Login
-          </a>
         </div>
       </div>
+      {/* Soft background shadow for lifted effect */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 right-0"
+        style={{
+          zIndex: 1,
+          bottom: '0',
+          top: 'auto',
+          height: '150px',
+          width: '100%',
+          filter: 'blur(36px)',
+          background: 'linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.08))',
+        }}
+      />
     </section>
   );
 }

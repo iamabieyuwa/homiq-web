@@ -1,4 +1,4 @@
-// Example property data for Homiq agent dashboard/demo
+// Example property data for Homiq agent dashboard/demo (with enhanced descriptions)
 const properties = [
   {
     id: 1,
@@ -14,7 +14,12 @@ const properties = [
     sold: false,
     category: "Flat",
     agentId: 1,
-    contact: "08030000001"
+    contact: "08030000001",
+    type: "Flat",
+    toilet: "Yes",
+    electricity: "Available",
+    water: "Available",
+    extra: "Fenced compound, tiled rooms, prepaid meter."
   },
   {
     id: 2,
@@ -30,7 +35,12 @@ const properties = [
     sold: false,
     category: "Mini Flat",
     agentId: 1,
-    contact: "08030000002"
+    contact: "08030000002",
+    type: "Mini Flat",
+    toilet: "Yes",
+    electricity: "Not Available",
+    water: "Available",
+    extra: "Upstairs, balcony, 1 car parking space."
   },
   {
     id: 3,
@@ -46,7 +56,12 @@ const properties = [
     sold: false,
     category: "Duplex",
     agentId: 2,
-    contact: "08030000003"
+    contact: "08030000003",
+    type: "Duplex",
+    toilet: "Yes",
+    electricity: "Available (24/7)",
+    water: "Available (Borehole)",
+    extra: "Swimming pool, gym, 4-car garage."
   },
   {
     id: 4,
@@ -61,7 +76,12 @@ const properties = [
     sold: true,
     category: "Self-Contain",
     agentId: 1,
-    contact: "08030000004"
+    contact: "08030000004",
+    type: "Self-Contain",
+    toilet: "Yes (Private)",
+    electricity: "Not Available",
+    water: "Not Available",
+    extra: "Ground floor, single room, no generator allowed."
   },
   {
     id: 5,
@@ -76,7 +96,12 @@ const properties = [
     sold: false,
     category: "Bungalow",
     agentId: 2,
-    contact: "08030000005"
+    contact: "08030000005",
+    type: "Bungalow",
+    toilet: "Yes (3)",
+    electricity: "Available (Prepaid)",
+    water: "Available",
+    extra: "Spacious compound, flower garden, security post."
   },
   {
     id: 6,
@@ -91,7 +116,12 @@ const properties = [
     sold: false,
     category: "Hostel",
     agentId: 3,
-    contact: "08030000006"
+    contact: "08030000006",
+    type: "Hostel Room",
+    toilet: "Shared",
+    electricity: "Available",
+    water: "Available",
+    extra: "Shared kitchen, 24/7 security, generator."
   },
   {
     id: 7,
@@ -106,7 +136,12 @@ const properties = [
     sold: true,
     category: "Flat",
     agentId: 1,
-    contact: "08030000007"
+    contact: "08030000007",
+    type: "Flat",
+    toilet: "Yes (5)",
+    electricity: "Available (Standby Generator)",
+    water: "Available",
+    extra: "Fully air-conditioned, elevator, CCTV surveillance."
   }
 ];
 

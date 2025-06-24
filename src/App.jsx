@@ -13,6 +13,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./components/pages/Register";
 import Login from "./components/pages/Login";
 import Agents from "./components/pages/Agents";
+import About from "./components/About";
+import RequestProperty from "./components/pages/RequestProperties";
 
 function App() {
   return (
@@ -23,10 +25,12 @@ function App() {
           <Route path="/property/:id" element={<PropertyDetails />} />
           <Route path="agents/login" element={<AgentLogin />} />
           <Route path="agent/signup" element={<AgentSignup />} />
+          <Route path='request' element={<RequestProperty />} />
           <Route path="agents" element={<Agents />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="properties" element={<Properties />} />
+          <Route path="about" element={<About />} />
           <Route
             path="agent/dashboard"
             element={

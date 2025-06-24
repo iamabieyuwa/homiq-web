@@ -1,8 +1,7 @@
-// pages/AllProperties.jsx
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const mockProperties = [
-  // You can repeat or expand these later
   {
     id: 1,
     title: "3 Bedroom Duplex in Lekki",
@@ -38,8 +37,10 @@ const mockProperties = [
 ];
 
 const AllProperties = () => {
+  const navigate = useNavigate();
+
   return (
-    <section className="px-4 py-16 bg-white dark:bg-black text-black dark:text-white min-h-screen">
+    <section className="px-4 py-16 bg-white text-black min-h-screen">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-10">
           All <span className="text-primary">Properties</span>
@@ -49,20 +50,34 @@ const AllProperties = () => {
           {mockProperties.map((property) => (
             <div
               key={property.id}
-              className="bg-white dark:bg-black border border-black/10 dark:border-white/10 rounded-lg shadow-md overflow-hidden transition hover:scale-[1.02] hover:shadow-lg"
+              className="bg-white border border-black/10 rounded-lg shadow-md overflow-hidden transition hover:scale-[1.02] hover:shadow-lg flex flex-col"
             >
               <img
                 src={property.image}
                 alt={property.title}
                 className="w-full h-48 object-cover"
               />
-              <div className="p-4 space-y-2">
+              <div className="p-4 space-y-2 flex-1 flex flex-col">
                 <h3 className="text-lg font-semibold">{property.title}</h3>
                 <p className="flex items-center text-sm gap-2">
                   <FaMapMarkerAlt className="text-primary" />
                   {property.location}
                 </p>
                 <p className="text-primary font-bold">{property.price}</p>
+                <div className="mt-4 flex gap-2">
+                  <button
+                    className="flex-1 bg-primary text-white py-2 rounded font-semibold hover:bg-primary/90 transition"
+                    onClick={() => navigate(`/property/${property.id}`)}
+                  >
+                    View
+                  </button>
+                  <button
+                    className="flex-1 bg-black text-white py-2 rounded font-semibold hover:bg-gray-800 transition"
+                    onClick={() => alert("Contact agent or request info for " + property.title)}
+                  >
+                    Contact Agent
+                  </button>
+                </div>
               </div>
             </div>
           ))}

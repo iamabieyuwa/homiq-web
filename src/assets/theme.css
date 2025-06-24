@@ -6,9 +6,17 @@
     --color-primary: #e50914;
     --color-black: #000000;
     --color-white: #ffffff;
-    --color-gray-dark: #1a1a1a;
     --font-main: 'Poppins', sans-serif;
   }
+  html, body {
+  color-scheme: light !important;
+  background: #fff !important;
+  color: #000 !important;
+  font-family: var(--font-main);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    transition: background-color 0.3s, color 0.3s;
+}
   .navbar {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -54,12 +62,7 @@
   }
   
   /* Global styles */
-  body {
-    font-family: var(--font-main);
-    background-color: var(--color-white);
-    color: var(--color-black);
-    transition: background-color 0.3s, color 0.3s;
-  }
+ 
   
   /* Custom utility classes */
   .bg-primary {
@@ -90,5 +93,13 @@
     background: linear-gradient(to bottom, #ffffff, #f9f9f9);
     
   }
+
+  @media (prefers-color-scheme: dark) {
+  html, body {
+    color-scheme: light !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+}
 
   

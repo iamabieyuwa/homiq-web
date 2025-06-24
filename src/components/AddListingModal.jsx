@@ -44,9 +44,9 @@ export default function AddListingModal({ open, onClose, onAdd }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
-      <div className="bg-white dark:bg-black p-6 rounded-lg shadow-lg w-full max-w-lg relative">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg relative">
         <button
-          className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-black dark:hover:text-white"
+          className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-black"
           onClick={onClose}
         >
           &times;

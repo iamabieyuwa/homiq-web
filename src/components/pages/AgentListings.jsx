@@ -88,7 +88,7 @@ export default function AgentListings() {
   }
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-primary/10 via-white to-primary/5 dark:from-black dark:to-black px-4 py-8">
+    <section className="min-h-screen bg-gradient-to-br from-primary/10 via-white to-primary/5 px-4 py-8">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-primary">My Listings</h2>
@@ -103,7 +103,7 @@ export default function AgentListings() {
         {showForm && (
           <form
             onSubmit={handleAddOrEditListing}
-            className="bg-white dark:bg-black rounded-xl shadow-lg p-6 mb-8 grid grid-cols-1 md:grid-cols-2 gap-6"
+            className="bg-white rounded-xl shadow-lg p-6 mb-8 grid grid-cols-1 md:grid-cols-2 gap-6"
           >
             <div>
               <label className="block mb-1 font-semibold">Title</label>
@@ -201,7 +201,7 @@ export default function AgentListings() {
             listings.map((listing, idx) => (
               <div
                 key={listing.id}
-                className="bg-white dark:bg-black rounded-xl shadow-lg overflow-hidden flex flex-col"
+                className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col"
               >
                 <img
                   src={listing.image}

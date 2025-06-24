@@ -77,8 +77,8 @@ export default function AgentProfileEdit() {
   }
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-white to-primary/5 dark:from-black dark:to-black">
-      <div className="bg-white dark:bg-black p-6 rounded-xl shadow-xl w-full max-w-md">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-white to-primary/5">
+      <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4 text-center text-primary">Edit Profile</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col items-center">

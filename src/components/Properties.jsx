@@ -3,6 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
 import properties from "../data/properties";
 
+// Badge for details with the same styling as FeaturedListings (gray background)
+// No green/red logic here
+function propBadge(label, value) {
+  return (
+    <span
+      className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-gray-100 text-gray-700 text-xxs font-semibold mr-1 mb-1"
+      title={label + ": " + value}
+    >
+      <span className="font-semibold">{label}:</span> {value}
+    </span>
+  );
+}
+
 export default function Properties() {
   const [search, setSearch] = useState("");
   const [min, setMin] = useState("");
@@ -159,7 +172,7 @@ export default function Properties() {
             return (
               <div
                 key={property.id}
-                className="bg-white dark:bg-black rounded-lg shadow hover:shadow-lg transition overflow-hidden cursor-pointer"
+                className="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden cursor-pointer border border-gray-100"
                 onClick={() => navigate(`/property/${property.id}`)}
               >
                 {Array.isArray(property.images) && property.images[0] && (
@@ -179,8 +192,14 @@ export default function Properties() {
                   {property.location && (
                     <div className="text-xs text-gray-400 mt-1">{property.location}</div>
                   )}
+                  <div className="flex flex-wrap gap-1 mt-3 mb-1">
+                    {propBadge("Type", property.type || "N/A")}
+                    {propBadge("Toilet", property.toilet || "N/A")}
+                    {propBadge("Electricity", property.electricity || "N/A")}
+                    {propBadge("Water", property.water || "N/A")}
+                  </div>
                   {property.verified && (
-                    <span className="inline-block mt-2 text-xs bg-green-600 text-white px-2 py-1 rounded">
+                    <span className="inline-block mt-2 text-xs bg-red-600 text-white px-2 py-1 rounded font-bold">
                       Verified
                     </span>
                   )}

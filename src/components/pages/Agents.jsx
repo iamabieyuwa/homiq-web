@@ -36,29 +36,29 @@ export default function Agents() {
   }, []);
 
   return (
-    <section className="min-h-screen bg-white dark:bg-black">
+    <section className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-black dark:text-white mb-6">
+        <h1 className="text-3xl font-bold text-black mb-6">
           Meet Our Agents
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {agents.map((agent) => (
             <div
               key={agent.id}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center text-center border border-gray-200 dark:border-gray-700"
+              className="bg-white rounded-lg shadow p-4 flex flex-col items-center text-center border border-gray-200"
             >
               <img
                 src={agent.profilePicture}
                 alt={agent.fullName}
                 className="w-20 h-20 rounded-full object-cover mb-4 border-4 border-red-600"
               />
-              <h2 className="text-lg font-semibold text-black dark:text-white">
+              <h2 className="text-lg font-semibold text-black">
                 {agent.fullName}
               </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-600">
                 {agent.email}
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-600">
                 {agent.phone}
               </p>
               <button
