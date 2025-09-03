@@ -24,7 +24,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/property/:id" element={<PropertyDetails />} />
           <Route path="agents/login" element={<AgentLogin />} />
-          <Route path="agent/signup" element={<AgentSignup />} />
+          <Route path="agents/signup" element={<AgentSignup />} />
           <Route path='request' element={<RequestProperty />} />
           <Route path="agents" element={<Agents />} />
           <Route path="register" element={<Register />} />

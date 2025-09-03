@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 
@@ -99,12 +99,12 @@ export default function AgentLogin() {
           </form>
           <div className="text-sm text-center mt-5">
             Don&apos;t have an account?{" "}
-            <a
-              href="/agent/signup"
+            <Link
+              to="/agents/signup"
               className="text-primary hover:underline font-semibold"
             >
               Sign up
-            </a>
+            </Link>
           </div>
         </div>
       </div>
